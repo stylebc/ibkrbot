@@ -1,0 +1,13 @@
+services:
+  ib-gateway:
+    image: ghcr.io/unusualalpha/ib-gateway:latest
+    container_name: ib-gateway
+    environment:
+      TWS_USERID: ${TWS_USERID}
+      TWS_PASSWORD: ${TWS_PASSWORD}
+      TRADING_MODE: ${TRADING_MODE}
+      VNC_SERVER_PASSWORD: ${VNC_SERVER_PASSWORD}
+    ports:
+      - "4001:4001"
+      - "5900:5900"
+    restart: unless-stopped

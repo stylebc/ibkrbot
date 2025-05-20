@@ -1,0 +1,4 @@
+/ib-api-local/venv/*
+/.env
+IBGateway/.env
+ibkr-test/venv/*
