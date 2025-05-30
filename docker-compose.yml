@@ -1,0 +1,49 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    container_name: mssql
+    ports:
+      - "${MSSQL_PORT}:1433"
+    environment:
+      SA_PASSWORD: "${SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+    
+    volumes:
+      - mssql_data:/var/opt/mssql
+    restart: unless-stopped
+    networks:
+      - ibkrbot-net
+  
+  db-init:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - sqlserver
+    environment:
+      SA_PASSWORD: "${SA_PASSWORD}"
+    entrypoint: [ "sh", "-c", "chmod +x /scripts/entrypoint.sh && sleep 10 && /scripts/entrypoint.sh" ]
+    volumes:
+      - ./sql/init.sql:/scripts/init.sql
+      - ./sql/entrypoint.sh:/scripts/entrypoint.sh
+    networks:
+      - ibkrbot-net
+  
+  ib-api:
+    build:
+      context: ./ib-api
+      dockerfile: Dockerfile
+    container_name: ib-api
+    ports:
+      - "8000:8000"
+    environment:
+      IB_HOST: host.docker.internal
+      IB_PORT: 4002
+    networks:
+      - ibkrbot-net
+
+networks:
+  ibkrbot-net:
+    driver: bridge
+
+volumes:
+  mssql_data:
