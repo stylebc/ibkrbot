@@ -10,10 +10,11 @@ GO
 
 IF OBJECT_ID('dbo.BotStates', 'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.BotStates (
-        Id INT PRIMARY KEY,
+    CREATE TABLE BotStates (
+        Id INT PRIMARY KEY IDENTITY(1,1),
+        Symbol NVARCHAR(450) NOT NULL,
         InPosition BIT NOT NULL,
-        LastSignal INT NOT NULL,
+        LastSignal INT NOT NULL DEFAULT 0,
         LastTradeTime DATETIME2 NOT NULL,
         EntryPrice FLOAT NOT NULL,
         MaxPriceSinceEntry FLOAT NOT NULL

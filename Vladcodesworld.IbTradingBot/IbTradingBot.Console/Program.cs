@@ -27,7 +27,10 @@ public class Program
 
         builder.Services.AddHttpClient<IbApiClient>(client =>
         {
-            client.BaseAddress = new Uri("http://localhost:8000/");
+            var options = builder.Configuration.GetSection("TradingBotOptions").Get<TradingBotOptions>()
+                ?? throw new InvalidOperationException("TradingBotOptions section is not configured.");
+
+            client.BaseAddress = new Uri(options.BaseUrl);
         });
 
         var app = builder.Build();

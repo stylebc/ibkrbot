@@ -3,9 +3,8 @@ using IbTradingBot.Console.Interfaces;
 using IbTradingBot.ProxyClient;
 
 namespace IbTradingBot.Console.Services;
-// IbTradingService.cs
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

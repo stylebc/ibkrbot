@@ -1,0 +1,34 @@
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore Dockerfiles and Compose configs outside current context
+docker-compose.yml
+.env
+
+# Ignore logs and temp files
+*.log
+*.tmp
+*.bak
+
+# Ignore local build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Ignore Rider and VS Code settings
+.idea/
+.vscode/
+*.csproj.user
+
+# Ignore tests if you don’t want them included
+tests/
+*.Tests/
+
+# Ignore secrets or keys (just in case)
+secrets/
+*.key
+*.pfx

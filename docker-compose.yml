@@ -40,7 +40,21 @@ services:
       IB_PORT: 4002
     networks:
       - ibkrbot-net
-
+  
+  csharp-bot:
+    build:
+      context: ./Vladcodesworld.IbTradingBot
+      dockerfile: Dockerfile
+    container_name: csharp-bot
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=IbTradingBot;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+      TradingBotOptions__BaseUrl: "http://ib-api:8000"
+    depends_on:
+      - sqlserver
+      - ib-api
+    networks:
+      - ibkrbot-net
 networks:
   ibkrbot-net:
     driver: bridge
